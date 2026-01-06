@@ -316,26 +316,29 @@ function AppContent() {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-violet-900 
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-gray-900 to-slate-800 
                     flex items-start justify-center pt-10 sm:pt-20 p-2 sm:p-4">
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 sm:w-20 h-16 sm:h-20 
-                          rounded-full bg-white/10 backdrop-blur-lg">
-              <LogIn className="w-8 sm:w-10 h-8 sm:h-10" />
+            <div className="inline-flex items-center justify-center mb-4">
+              <img 
+                src="/images/sds.jpeg" 
+                alt="Smart Digital Signage" 
+                className="h-24 w-auto rounded-xl shadow-2xl"
+              />
             </div>
             <h1 className="text-3xl sm:text-4xl font-bold mb-2">
-              <span className="bg-gradient-to-r from-indigo-500 via-purple-500 to-violet-400 bg-clip-text text-transparent">
-                SPID
+              <span className="bg-gradient-to-r from-orange-500 via-orange-600 to-amber-600 bg-clip-text text-transparent">
+                Smart
               </span>
-              <span className="bg-gradient-to-r from-violet-400 to-fuchsia-500 bg-clip-text text-transparent">
-                {' '}Plus
+              <span className="bg-gradient-to-r from-gray-300 to-gray-400 bg-clip-text text-transparent">
+                {' '}Digital Signage
               </span>
             </h1>
             <p className="text-white/70 text-lg">Inicia sesión en tu cuenta</p>
           </div>
 
-          <div className="bg-white/5 backdrop-blur-lg rounded-2xl shadow-2xl p-8 border border-white/10">
+          <div className="bg-white/5 backdrop-blur-lg rounded-2xl shadow-2xl p-8 border border-orange-500/20">
             <form onSubmit={handleLogin} className="space-y-6">
               {error && (
                 <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 backdrop-blur-sm">
@@ -360,7 +363,7 @@ function AppContent() {
                     value={email}
                     onChange={handleEmailChange}
                     className="block w-full pl-10 pr-3 py-2 bg-white/10 border border-white/20 rounded-lg 
-                             focus:ring-2 focus:ring-white/50 focus:border-transparent placeholder-white/30 text-white"
+                             focus:ring-2 focus:ring-orange-500 focus:border-orange-500 placeholder-white/30 text-white"
                     placeholder="tu@email.com"
                     defaultValue="admin@admin.com"
                   />
@@ -381,7 +384,7 @@ function AppContent() {
                     value={password}
                     onChange={handlePasswordChange}
                     className="block w-full pl-10 pr-3 py-2 bg-white/10 border border-white/20 rounded-lg 
-                             focus:ring-2 focus:ring-white/50 focus:border-transparent placeholder-white/30 text-white"
+                             focus:ring-2 focus:ring-orange-500 focus:border-orange-500 placeholder-white/30 text-white"
                     placeholder="••••••••"
                     defaultValue="admin"
                   />
@@ -390,9 +393,9 @@ function AppContent() {
 
               <button
                 type="submit"
-                className="w-full py-3 px-4 bg-white/20 hover:bg-white/30 text-white rounded-lg 
+                className="w-full py-3 px-4 bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-lg 
                          transition-all duration-200 font-medium shadow-lg hover:shadow-xl
-                         backdrop-blur-lg border border-white/20"
+                         border border-orange-400/20"
               >
                 Iniciar Sesión
               </button>

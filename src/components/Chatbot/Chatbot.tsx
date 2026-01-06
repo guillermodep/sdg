@@ -23,7 +23,7 @@ const INITIAL_MESSAGES: Message[] = [
   {
     id: '1',
     type: 'bot',
-    text: '¡Hola! Soy el asistente virtual de SPID+. Puedes preguntarme sobre cualquier funcionalidad del sistema o escribir "ayuda" para ver una guía completa.',
+    text: '¡Hola! Soy el asistente virtual de Smart Digital Signage. Puedes preguntarme sobre cualquier funcionalidad del sistema o escribir "ayuda" para ver una guía completa.',
     timestamp: new Date()
   }
 ];
@@ -240,7 +240,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({ userEmail }) => {
               <div className="bg-gradient-to-r from-indigo-600 to-violet-600 p-4 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <MessageCircle className="w-5 h-5 text-white" />
-                  <h3 className="text-white font-medium">Asistente SPID+</h3>
+                  <h3 className="text-white font-medium">Asistente SDS</h3>
                 </div>
                 <div className="flex items-center gap-2">
                   <button
@@ -342,7 +342,7 @@ export const Chatbot: React.FC<ChatbotProps> = ({ userEmail }) => {
               >
                 <div className="flex items-center gap-2">
                   <MessageCircle className="w-5 h-5 text-indigo-600" />
-                  <span className="font-medium text-gray-700">Asistente SPID+</span>
+                  <span className="font-medium text-gray-700">Asistente SDS</span>
                 </div>
                 <Maximize2 className="w-4 h-4 text-gray-400" />
               </button>

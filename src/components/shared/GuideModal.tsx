@@ -76,15 +76,15 @@ export function GuideModal({ isOpen, onClose }: GuideModalProps) {
 
   const sections = [
     {
-      title: 'Bienvenido a SPID Plus',
+      title: 'Bienvenido a Smart Digital Signage',
       items: [
         {
           icon: <Layout className="w-5 h-5" />,
           title: 'Descripción General',
           description: 'Conoce la plataforma y sus módulos principales.',
           detailedGuide: {
-            title: 'SPID Plus - Plataforma de Gestión de Carteles Físicos y Digitales',
-            description: 'SPID Plus es una plataforma integral para la gestión de carteles físicos y digitales para retail, que consta de tres módulos principales y módulos complementarios que se integran con sistemas externos para extender las capacidades de la plataforma.',
+            title: 'Smart Digital Signage - Plataforma de Gestión de Carteles Físicos y Digitales',
+            description: 'Smart Digital Signage es una plataforma integral para la gestión de carteles físicos y digitales para retail, que consta de tres módulos principales y módulos complementarios que se integran con sistemas externos para extender las capacidades de la plataforma.',
             steps: [
               {
                 title: 'Módulos Principales',
@@ -296,7 +296,7 @@ export function GuideModal({ isOpen, onClose }: GuideModalProps) {
           description: 'Ajustes y personalización del sistema.',
           detailedGuide: {
             title: 'Configuración del Sistema',
-            description: 'Personaliza y configura todos los aspectos de SPID Plus.',
+            description: 'Personaliza y configura todos los aspectos de Smart Digital Signage.',
             steps: [
               {
                 title: 'Ajustes Generales',

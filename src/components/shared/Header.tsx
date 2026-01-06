@@ -18,7 +18,7 @@ export function Header({ onBack, onLogout }: HeaderProps) {
 
   return (
     <>
-      <div className="bg-gradient-to-br from-slate-900 via-blue-900 to-violet-900 border-b border-white/10 shadow-lg">
+      <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-gray-900 border-b border-orange-500/20 shadow-lg">
         <div className="max-w-7xl mx-auto px-2 sm:px-4">
           <div className="flex justify-between items-center h-16 relative">
             {onBack && (
@@ -33,13 +33,18 @@ export function Header({ onBack, onLogout }: HeaderProps) {
               </motion.button>
             )}
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
+              <img 
+                src="/images/sds.jpeg" 
+                alt="Smart Digital Signage" 
+                className="h-10 w-auto rounded-lg"
+              />
               <h1 className="text-xl font-bold">
-                <span className="bg-gradient-to-r from-white via-white to-violet-200 bg-clip-text text-transparent">
-                  SPID
+                <span className="bg-gradient-to-r from-orange-400 via-orange-500 to-amber-500 bg-clip-text text-transparent">
+                  Smart
                 </span>
-                <span className="bg-gradient-to-r from-violet-200 to-violet-400 bg-clip-text text-transparent">
-                  {' '}Plus
+                <span className="bg-gradient-to-r from-gray-300 to-gray-400 bg-clip-text text-transparent">
+                  {' '}Digital Signage
                 </span>
               </h1>
             </div>

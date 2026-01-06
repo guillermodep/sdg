@@ -41,7 +41,7 @@ export const NewsModal: React.FC<NewsModalProps> = ({ isOpen, onClose }) => {
             {/* Contenido */}
             <div className="relative z-10">
               <h2 className="text-3xl font-bold text-white mb-6 text-center">
-                ¡Novedades en SPID+! 🎉
+                ¡Novedades en Smart Digital Signage! 🎉
               </h2>
 
               {/* Chatbot Feature */}
@@ -84,7 +84,7 @@ export const NewsModal: React.FC<NewsModalProps> = ({ isOpen, onClose }) => {
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-white">
-                      SpidCopilot (Próximamente)
+                      SDS Copilot (Próximamente)
                     </h3>
                     <p className="text-violet-200">
                       Tu asistente inteligente de trabajo
@@ -93,7 +93,7 @@ export const NewsModal: React.FC<NewsModalProps> = ({ isOpen, onClose }) => {
                 </div>
                 <div className="pl-16">
                   <p className="text-white/80">
-                    Pronto podrás interactuar con nuestro SpidCopilot para solicitarle que haga el trabajo por ti.
+                    Pronto podrás interactir con nuestro SDS Copilot para solicitarle que haga el trabajo por ti.
                   </p>
                 </div>
               </motion.div>

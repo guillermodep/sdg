@@ -2088,17 +2088,21 @@ export default function Dashboard({
           transition={{ delay: 0.2 }}
           className="mb-8 flex items-center gap-3"
         >
-          <h2 className="text-3xl font-medium">
-            <span className="bg-gradient-to-r from-slate-900 via-slate-800 to-indigo-900 bg-clip-text text-transparent">
+          <div className="text-center mb-12">
+            <span className="text-4xl font-bold text-gray-900">
               Bienvenido a{' '}
             </span>
-            <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-violet-600 bg-clip-text text-transparent">
-              SPID
+            <span className="bg-gradient-to-r from-orange-500 via-orange-600 to-amber-600 bg-clip-text text-transparent">
+              Smart
             </span>
-            <span className="bg-gradient-to-r from-violet-600 to-fuchsia-600 bg-clip-text text-transparent">
-              {' '}Plus
+            <span className="bg-gradient-to-r from-gray-600 to-gray-700 bg-clip-text text-transparent">
+              {' '}Digital Signage
             </span>
-          </h2>
+            <span className="text-4xl font-bold text-gray-900">
+              {' '}👋
+            </span>
+            <p className="text-gray-600 mt-2">Todos los carteles físicos y digitales en un solo lugar.</p>
+          </div>
           <motion.span
             animate={{
               rotate: [0, 14, -8, 14, -4, 10, 0],

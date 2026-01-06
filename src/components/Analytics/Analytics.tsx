@@ -25,6 +25,7 @@ import { generateRandomData } from '../../utils/analyticsData';
 import { AnimatePresence } from 'framer-motion';
 import { ScatterChart, Scatter, ZAxis } from 'recharts';
 import { HeaderProvider } from '../shared/HeaderProvider';
+import { isCompanyEnabled } from '../../lib/companySettings';
 
 interface AnalyticsProps {
   onBack: () => void;
@@ -189,6 +190,62 @@ export const Analytics: React.FC<AnalyticsProps> = ({ onBack, onLogout, userEmai
   const [selectedCompany, setSelectedCompany] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Mapeo de nombres de empresas a sus IDs en localStorage
+  const companyIdMap: { [key: string]: string } = {
+    'Easy': '20',
+    'Jumbo': '17',
+    'Disco': '18',
+    'Vea': '19'
+  };
+
+  // Filtrar datos para mostrar solo empresas habilitadas
+  const enabledData = React.useMemo(() => {
+    const enabledSalesData = data.salesData.filter(company => {
+      const companyId = companyIdMap[company.name];
+      return companyId && isCompanyEnabled(companyId);
+    });
+
+    // Filtrar monthlyData para incluir solo empresas habilitadas
+    const enabledMonthlyData = data.monthlyData.map(month => {
+      const filteredMonth: any = { name: month.name };
+      enabledSalesData.forEach(company => {
+        filteredMonth[company.name] = month[company.name as keyof typeof month] || 0;
+      });
+      return filteredMonth;
+    });
+
+    // Filtrar topProducts para incluir solo empresas habilitadas
+    const enabledTopProducts: Record<string, TopProduct[]> = {};
+    enabledSalesData.forEach(company => {
+      if (data.topProducts[company.name]) {
+        enabledTopProducts[company.name] = data.topProducts[company.name];
+      }
+    });
+
+    // Filtrar promotionData para incluir solo empresas habilitadas
+    const enabledPromotionData = data.promotionData.filter(promo => {
+      if (!promo.company) return true;
+      const companyId = companyIdMap[promo.company];
+      return companyId && isCompanyEnabled(companyId);
+    });
+
+    // Filtrar storeSLAData para incluir solo empresas habilitadas
+    const enabledStoreSLAData = data.storeSLAData.filter(store => {
+      if (!store.company) return true;
+      const companyId = companyIdMap[store.company];
+      return companyId && isCompanyEnabled(companyId);
+    });
+
+    return {
+      ...data,
+      salesData: enabledSalesData,
+      monthlyData: enabledMonthlyData,
+      topProducts: enabledTopProducts,
+      promotionData: enabledPromotionData,
+      storeSLAData: enabledStoreSLAData
+    };
+  }, [data]);
+
   // Simular carga de datos
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -205,41 +262,27 @@ export const Analytics: React.FC<AnalyticsProps> = ({ onBack, onLogout, userEmai
 
   const filteredData = React.useMemo(() => {
     if (!selectedCompany) {
-      // Cuando no hay empresa seleccionada, combinar todos los productos
-      const allProducts = Object.entries(data.topProducts)
-        .flatMap(([company, products]) => 
-          products.map(product => ({
-            ...product,
-            company
-          }))
-        )
-        .sort((a, b) => b.value - a.value)
-        .slice(0, 5);
-
-      return {
-        ...data,
-        topProducts: allProducts
-      };
+      return enabledData;
     }
 
     return {
-      ...data,
-      salesData: data.salesData.filter(item => item.name === selectedCompany),
-      monthlyData: data.monthlyData.map(month => ({
+      ...enabledData,
+      salesData: enabledData.salesData.filter(item => item.name === selectedCompany),
+      monthlyData: enabledData.monthlyData.map(month => ({
         name: month.name,
         Easy: selectedCompany === 'Easy' ? month.Easy : 0,
         Jumbo: selectedCompany === 'Jumbo' ? month.Jumbo : 0,
         Disco: selectedCompany === 'Disco' ? month.Disco : 0,
         Vea: selectedCompany === 'Vea' ? month.Vea : 0
       })),
-      regionData: data.regionData.map(region => ({
+      regionData: enabledData.regionData.map(region => ({
         name: region.name,
         value: region.byCompany[selectedCompany] || 0,
         byCompany: { [selectedCompany]: region.byCompany[selectedCompany] || 0 }
       })),
-      topProducts: data.topProducts[selectedCompany] || []
+      topProducts: enabledData.topProducts[selectedCompany] || []
     };
-  }, [data, selectedCompany]);
+  }, [enabledData, selectedCompany]);
 
   const CustomBarLabel = (props: any) => {
     const { x, y, width, value, logo } = props;
@@ -303,7 +346,7 @@ export const Analytics: React.FC<AnalyticsProps> = ({ onBack, onLogout, userEmai
             >
               Todas
             </motion.button>
-            {data.salesData.map((company) => (
+            {enabledData.salesData.map((company) => (
               <motion.button
                 key={company.name}
                 whileHover={{ scale: 1.05 }}
@@ -388,7 +431,7 @@ export const Analytics: React.FC<AnalyticsProps> = ({ onBack, onLogout, userEmai
         />
       ) : (
         <>
-          {data.salesData.map(company => (
+          {enabledData.salesData.map(company => (
             <Area 
               key={company.name}
               type="monotone" 

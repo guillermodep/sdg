@@ -37,6 +37,13 @@ const REGIONAL_DISTRIBUTIONS = {
     'Santa Fe': 0.22,
     'Mendoza': 0.12,
     'Tucumán': 0.08
+  },
+  Sodimac: {
+    'Buenos Aires': 0.38,
+    'Córdoba': 0.24,
+    'Santa Fe': 0.18,
+    'Mendoza': 0.14,
+    'Tucumán': 0.06
   }
 };
 
@@ -69,6 +76,13 @@ const COMPANY_PRODUCTS = {
     { name: 'Jabón en Polvo', baseValue: 400 },
     { name: 'Gaseosa Manaos', baseValue: 350 },
     { name: 'Galletas Surtidas', baseValue: 300 }
+  ],
+  Sodimac: [
+    { name: 'Cemento Portland', baseValue: 520 },
+    { name: 'Cerámica Piso', baseValue: 480 },
+    { name: 'Pintura Látex', baseValue: 420 },
+    { name: 'Grifería Baño', baseValue: 380 },
+    { name: 'Adhesivo Cerámico', baseValue: 320 }
   ]
 };
 
@@ -113,6 +127,16 @@ const PROMOTION_DATA = {
     { name: "Ofertas Semanales", conversion: 71, sales: 1500 },
     { name: "Festival Snacks", conversion: 69, sales: 1200 },
     { name: "Descuentos Express", conversion: 73, sales: 1600 }
+  ],
+  Sodimac: [
+    { name: "Descuento Construcción", conversion: 77, sales: 1400 },
+    { name: "2x1 Pinturas", conversion: 71, sales: 1050 },
+    { name: "Oferta Pisos", conversion: 64, sales: 920 },
+    { name: "Cyber Construcción", conversion: 88, sales: 2300 },
+    { name: "Promo Baños", conversion: 73, sales: 1700 },
+    { name: "Semana Hogar", conversion: 79, sales: 1550 },
+    { name: "Festival Jardín", conversion: 75, sales: 1800 },
+    { name: "Mega Remodelación", conversion: 83, sales: 2100 }
   ]
 };
 
@@ -164,6 +188,18 @@ const STORE_SLA_DATA = {
     { store: "Vea Villa Luro", sla: 88, printTime: 52 },
     { store: "Vea Versalles", sla: 85, printTime: 55 },
     { store: "Vea Monte Castro", sla: 87, printTime: 53 }
+  ],
+  Sodimac: [
+    { store: "Sodimac Javier Prado", sla: 93, printTime: 47 },
+    { store: "Sodimac Angamos", sla: 90, printTime: 50 },
+    { store: "Sodimac Mega Plaza", sla: 88, printTime: 52 },
+    { store: "Sodimac San Miguel", sla: 91, printTime: 49 },
+    { store: "Sodimac Atocongo", sla: 87, printTime: 53 },
+    { store: "Sodimac Arequipa", sla: 94, printTime: 46 },
+    { store: "Sodimac Trujillo", sla: 89, printTime: 51 },
+    { store: "Sodimac Chiclayo", sla: 92, printTime: 48 },
+    { store: "Sodimac Piura", sla: 86, printTime: 54 },
+    { store: "Sodimac Cusco", sla: 90, printTime: 50 }
   ]
 };
 
@@ -247,6 +283,12 @@ export const generateRandomData = (startDate: Date, endDate: Date) => {
       color: '#FFE5A5',
       logo: 'https://upload.wikimedia.org/wikipedia/commons/f/fc/Logo_Vea_Cencosud.png'
     },
+    { 
+      name: 'Sodimac', 
+      value: Math.floor((Math.random() * 900 + 1900) * multiplier), 
+      color: '#FF6B35',
+      logo: '/images/Sodimac logo.jpg'
+    },
   ];
 
   // Actualizar la generación de datos de promociones
@@ -324,7 +366,8 @@ function getMonthlyData(startDate: Date, endDate: Date, multiplier: number) {
     easy: 2000,
     jumbo: 1800,
     disco: 1500,
-    vea: 1200
+    vea: 1200,
+    sodimac: 1900
   };
   
   while (currentDate <= endDate) {
@@ -333,7 +376,8 @@ function getMonthlyData(startDate: Date, endDate: Date, multiplier: number) {
       Easy: Math.floor((Math.random() * 1000 + baseValues.easy) * multiplier),
       Jumbo: Math.floor((Math.random() * 800 + baseValues.jumbo) * multiplier),
       Disco: Math.floor((Math.random() * 600 + baseValues.disco) * multiplier),
-      Vea: Math.floor((Math.random() * 400 + baseValues.vea) * multiplier)
+      Vea: Math.floor((Math.random() * 400 + baseValues.vea) * multiplier),
+      Sodimac: Math.floor((Math.random() * 900 + baseValues.sodimac) * multiplier)
     });
     currentDate.setMonth(currentDate.getMonth() + 1);
   }

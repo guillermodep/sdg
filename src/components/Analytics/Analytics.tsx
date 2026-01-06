@@ -169,6 +169,10 @@ const GRADIENTS = {
   Vea: {
     id: 'veaGradient',
     colors: ['#FFE5A5', '#FFF2D1']
+  },
+  Sodimac: {
+    id: 'sodimacGradient',
+    colors: ['#FF6B35', '#FFA07A']
   }
 } as const;
 
@@ -195,7 +199,8 @@ export const Analytics: React.FC<AnalyticsProps> = ({ onBack, onLogout, userEmai
     'Easy': '20',
     'Jumbo': '17',
     'Disco': '18',
-    'Vea': '19'
+    'Vea': '19',
+    'Sodimac': '0'
   };
 
   // Filtrar datos para mostrar solo empresas habilitadas
@@ -273,7 +278,8 @@ export const Analytics: React.FC<AnalyticsProps> = ({ onBack, onLogout, userEmai
         Easy: selectedCompany === 'Easy' ? month.Easy : 0,
         Jumbo: selectedCompany === 'Jumbo' ? month.Jumbo : 0,
         Disco: selectedCompany === 'Disco' ? month.Disco : 0,
-        Vea: selectedCompany === 'Vea' ? month.Vea : 0
+        Vea: selectedCompany === 'Vea' ? month.Vea : 0,
+        Sodimac: selectedCompany === 'Sodimac' ? month.Sodimac : 0
       })),
       regionData: enabledData.regionData.map(region => ({
         name: region.name,

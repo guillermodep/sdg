@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { ArrowLeft, LogOut, Plus, Package2, Tags, Star, Clock, FileText, Sun, Moon, LayoutTemplate, Settings, Send, FileEdit, Printer, X, BarChart3, Search, InboxIcon, Monitor } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Header } from './shared/Header';
@@ -16,6 +16,7 @@ import {
 import Select from 'react-select';
 import { Chatbot } from './Chatbot/Chatbot';
 import { NewsModal } from './NewsModal';
+import { isCompanyEnabled } from '../lib/companySettings';
 
 interface DashboardProps {
   onLogout: () => void;
@@ -1444,6 +1445,32 @@ const PrintComplianceChart: React.FC<{
       ? STORE_COMPLIANCE_DATA.all.stores
       : STORE_COMPLIANCE_DATA.promotions[selectedPromotion as keyof typeof STORE_COMPLIANCE_DATA.promotions].stores;
 
+    // Filtrar por empresas habilitadas
+    const companyIdMap: { [key: string]: string } = {
+      'easy': '20',
+      'jumbo': '17',
+      'disco': '18',
+      'vea': '19'
+    };
+    
+    data = data.filter(store => {
+      const storeLocation = LOCATIONS.find(loc => 
+        loc.name.toLowerCase() === store.name.toLowerCase()
+      );
+      
+      if (storeLocation) {
+        const companyLower = storeLocation.company.toLowerCase();
+        const companyId = companyIdMap[companyLower];
+        
+        // Si la empresa tiene un ID mapeado, verificar si está habilitada
+        if (companyId && !isCompanyEnabled(companyId)) {
+          return false;
+        }
+      }
+      
+      return true;
+    });
+
     // Filtrar por empresa si está seleccionada
     if (selectedCompany !== 'all') {
       data = data.filter(store => {
@@ -1860,9 +1887,51 @@ export default function Dashboard({
     localStorage.setItem('hasSeenNews', 'true');
   };
 
+  // Filtrar empresas habilitadas para mostrar en los botones
+  const filteredCompanyOptions = useMemo(() => {
+    return COMPANY_OPTIONS.filter(company => {
+      // Siempre mostrar "Todas"
+      if (company.value === 'all') {
+        return true;
+      }
+      
+      // Mapear el valor del botón al empresaId en localStorage
+      // Los valores son: 'easy', 'jumbo', 'disco', 'vea'
+      // Los empresaId son: 20, 17, 18, 19
+      const companyIdMap: { [key: string]: string } = {
+        'easy': '20',    // Easy (MDH)
+        'jumbo': '17',   // Jumbo
+        'disco': '18',   // Disco
+        'vea': '19'      // Vea
+      };
+      
+      const companyId = companyIdMap[company.value];
+      if (!companyId) return true; // Si no está en el mapa, mostrar por defecto
+      
+      // Verificar si la empresa está habilitada usando su ID
+      return isCompanyEnabled(companyId);
+    });
+  }, []);
+
   // Filtrar las actividades basado en el usuario
   const filteredActivities = React.useMemo(() => {
     return activities.filter(activity => {
+      // Filtro por empresas habilitadas
+      const companyIdMap: { [key: string]: string } = {
+        'easy': '20',
+        'jumbo': '17',
+        'disco': '18',
+        'vea': '19'
+      };
+      
+      const companyLower = activity.company.toLowerCase();
+      const companyId = companyIdMap[companyLower];
+      
+      // Si la empresa tiene un ID mapeado, verificar si está habilitada
+      if (companyId && !isCompanyEnabled(companyId)) {
+        return false;
+      }
+      
       // Filtro por usuario Pilar
       if (isPilarUser(userEmail) && !activity.locations.some(loc => 
         loc.name.toLowerCase().includes('pilar'))) {
@@ -2376,7 +2445,7 @@ export default function Dashboard({
             <div className="flex flex-col gap-4">
               {/* Fila de botones de empresas */}
               <div className="flex items-center gap-4 pb-6 pt-2">
-                {COMPANY_OPTIONS.map(company => (
+                {filteredCompanyOptions.map(company => (
                   <CompanyButton
                     key={company.value}
                     company={company}

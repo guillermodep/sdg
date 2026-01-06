@@ -2099,7 +2099,7 @@ export default function Dashboard({
               {' '}Digital Signage
             </span>
             <span className="text-4xl font-bold text-gray-900">
-              {' '}👋
+              
             </span>
             <p className="text-gray-600 mt-2"></p>
           </div>
